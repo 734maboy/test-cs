@@ -1,4 +1,3 @@
-
 interface BaseProjectGroup {
   id: number;
   groupTitle: string;
@@ -24,18 +23,30 @@ export interface ProjectBusinessProperties {
   projectTeamCode: number;
 }
 
-export interface ProjectInfoGroup extends BaseProjectGroup{
+export interface ProjectInfoGroup extends BaseProjectGroup {
   groupProperties: ProjectSummaryProperties;
 }
 
-export interface ProjectTimeGroup extends BaseProjectGroup{
+export interface ProjectTimeGroup extends BaseProjectGroup {
   groupProperties: ProjectTimeProperties;
 }
 
-export interface ProjectBusinessGroup extends BaseProjectGroup{
+export interface ProjectBusinessGroup extends BaseProjectGroup {
   groupProperties: ProjectBusinessProperties;
 }
 
+export type TotalGroupProperties =
+  | ProjectBusinessGroup
+  | ProjectTimeGroup
+  | ProjectInfoGroup;
+
+/**
+ * @typedef {Object} ProjectData
+ * @property {string} name name of Project
+ * @property {string} id unique identificator of project
+ * @property {Array} groups project properties groups
+ * @property {Array} children children elements of project
+ */
 export interface ProjectData {
   name: string;
   id: string;
@@ -67,12 +78,15 @@ export interface GetProjectsData {
   type: TreeActionTypes.EXPORT_DATA;
 }
 
-export type TreeAction = GetProjectsData | SetProjectPropertiesAction | UpdateSelectedProjectAction | ImportProjectsDataAction;
+export type TreeAction =
+  | GetProjectsData
+  | SetProjectPropertiesAction
+  | UpdateSelectedProjectAction
+  | ImportProjectsDataAction;
 
 export enum TreeActionTypes {
-  EXPORT_DATA = "EXPORT_DATA",
-  SET_SELECTED_PROJECT_PROPS = "SET_SELECTED_PROJECT_PROPS",
-  UPDATE_SELECTED_PROJECT = "UPDATE_SELECTED_PROJECT",
-  IMPORT_PROJECTS_DATA = "IMPORT_PROJECTS_DATA",
+  EXPORT_DATA = 'EXPORT_DATA',
+  SET_SELECTED_PROJECT_PROPS = 'SET_SELECTED_PROJECT_PROPS',
+  UPDATE_SELECTED_PROJECT = 'UPDATE_SELECTED_PROJECT',
+  IMPORT_PROJECTS_DATA = 'IMPORT_PROJECTS_DATA',
 }
-

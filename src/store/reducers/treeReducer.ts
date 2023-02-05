@@ -1,5 +1,9 @@
-import {ProjectData, TreeAction, TreeActionTypes, TreeState} from "../../types/tree";
-
+import {
+  ProjectData,
+  TreeAction,
+  TreeActionTypes,
+  TreeState,
+} from '../../types/tree';
 
 const initState: TreeState = {
   projects: {
@@ -10,7 +14,6 @@ const initState: TreeState = {
         id: 'space-x-pro',
         name: 'SpacExPro',
         children: [
-
           {
             id: 'boomer',
             name: 'BOOMER',
@@ -25,7 +28,7 @@ const initState: TreeState = {
                   projectStatus: 'In progress',
                   projectPeopleNumber: 35,
                   isOutsourceProject: true,
-                }
+                },
               },
               {
                 id: 2,
@@ -34,7 +37,7 @@ const initState: TreeState = {
                 groupProperties: {
                   projectDaysEstimate: 180,
                   projectDaysEffort: 35,
-                }
+                },
               },
               {
                 id: 3,
@@ -44,10 +47,10 @@ const initState: TreeState = {
                   projectBusinessValue: 3,
                   projectBudget: 315000,
                   projectBudgetCurrency: 'USD',
-                  projectTeamCode: 35
-                }
+                  projectTeamCode: 35,
+                },
               },
-            ]
+            ],
           },
         ],
         groups: [
@@ -60,7 +63,7 @@ const initState: TreeState = {
               projectStatus: 'In progress',
               projectPeopleNumber: 35,
               isOutsourceProject: true,
-            }
+            },
           },
           {
             id: 2,
@@ -69,7 +72,7 @@ const initState: TreeState = {
             groupProperties: {
               projectDaysEstimate: 180,
               projectDaysEffort: 35,
-            }
+            },
           },
           {
             id: 3,
@@ -79,10 +82,10 @@ const initState: TreeState = {
               projectBusinessValue: 3,
               projectBudget: 315000,
               projectBudgetCurrency: 'USD',
-              projectTeamCode: 35
-            }
+              projectTeamCode: 35,
+            },
           },
-        ]
+        ],
       },
       {
         id: 'mobX-tail',
@@ -98,7 +101,7 @@ const initState: TreeState = {
               projectStatus: 'In progress',
               projectPeopleNumber: 35,
               isOutsourceProject: true,
-            }
+            },
           },
           {
             id: 2,
@@ -107,7 +110,7 @@ const initState: TreeState = {
             groupProperties: {
               projectDaysEstimate: 180,
               projectDaysEffort: 35,
-            }
+            },
           },
           {
             id: 3,
@@ -117,10 +120,10 @@ const initState: TreeState = {
               projectBusinessValue: 3,
               projectBudget: 315000,
               projectBudgetCurrency: 'USD',
-              projectTeamCode: 35
-            }
+              projectTeamCode: 35,
+            },
           },
-        ]
+        ],
       },
     ],
     groups: [
@@ -133,7 +136,7 @@ const initState: TreeState = {
           projectStatus: 'In progress',
           projectPeopleNumber: 15,
           isOutsourceProject: false,
-        }
+        },
       },
       {
         id: 2,
@@ -142,7 +145,7 @@ const initState: TreeState = {
         groupProperties: {
           projectDaysEstimate: 180,
           projectDaysEffort: 35,
-        }
+        },
       },
       {
         id: 3,
@@ -152,43 +155,49 @@ const initState: TreeState = {
           projectBusinessValue: 5,
           projectBudget: 250000,
           projectBudgetCurrency: 'RUB',
-          projectTeamCode: 35
-        }
+          projectTeamCode: 35,
+        },
       },
-    ]
+    ],
   },
   selectedProject: null,
-  error: null
-}
+  error: null,
+};
 
-function deepProjectUpdate(project: ProjectData, modifiedProject: ProjectData): ProjectData {
-  let updatedAll = Object.assign({}, project);
+function deepProjectUpdate(
+  project: ProjectData,
+  modifiedProject: ProjectData
+): ProjectData {
+  const updatedAll = Object.assign({}, project);
   if (project.id === modifiedProject.id) {
-    return {...updatedAll, ...modifiedProject};
+    return { ...updatedAll, ...modifiedProject };
   } else {
     if (project.children.length > 0) {
       updatedAll.children = [];
       project.children.forEach((child) => {
-        updatedAll.children.push((deepProjectUpdate(child, modifiedProject)));
-      })
+        updatedAll.children.push(deepProjectUpdate(child, modifiedProject));
+      });
     }
   }
   return updatedAll;
 }
 
-export const treeReducer = (state: TreeState = initState, action: TreeAction): TreeState => {
+export const treeReducer = (
+  state: TreeState = initState,
+  action: TreeAction
+): TreeState => {
   switch (action.type) {
     case TreeActionTypes.EXPORT_DATA:
-      return state
+      return state;
     case TreeActionTypes.SET_SELECTED_PROJECT_PROPS:
-      return {...state, selectedProject: action.payload}
+      return { ...state, selectedProject: action.payload };
     case TreeActionTypes.IMPORT_PROJECTS_DATA:
-      return {...state, projects: action.payload, selectedProject: null}
+      return { ...state, projects: action.payload, selectedProject: null };
     case TreeActionTypes.UPDATE_SELECTED_PROJECT: {
-      let updatedTree = deepProjectUpdate(state.projects, action.payload);
-      return {...state, projects: {...updatedTree}}
+      const updatedTree = deepProjectUpdate(state.projects, action.payload);
+      return { ...state, projects: { ...updatedTree } };
     }
     default:
       return state;
   }
-}
+};

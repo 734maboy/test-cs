@@ -1,13 +1,13 @@
 import React from 'react';
-import RichObjectTreeView from "./components/RichObjectTreeView/RichObjectTreeView";
-import EditPropertiesBlock from "./components/EditPropertiesBlock/EditPropertiesBlock";
+import RichObjectTreeView from './components/RichObjectTreeView/RichObjectTreeView';
+import EditPropertiesBlock from './components/EditPropertiesBlock/EditPropertiesBlock';
 import './style/app.css';
 
 function App() {
   return (
     <div className={'root-container'}>
-      <RichObjectTreeView/>
-      <EditPropertiesBlock/>
+      <RichObjectTreeView />
+      <EditPropertiesBlock />
     </div>
   );
 }
