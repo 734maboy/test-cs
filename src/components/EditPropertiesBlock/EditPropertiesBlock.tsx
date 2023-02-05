@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './editPropertiesBlock.css';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { Box, Button, Tab, Tabs, TextField } from '@mui/material';
+import { Box, Button, Snackbar, Tab, Tabs, TextField } from '@mui/material';
 import {
   ProjectBusinessGroup,
   ProjectData,
@@ -12,6 +12,7 @@ import {
 } from '../../types/tree';
 import { useDispatch } from 'react-redux';
 import { simpleValidateParsedData } from '../../utils/validation';
+import { Alert } from '@mui/lab';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -40,6 +41,11 @@ const EditPropertiesBlock: React.FC = () => {
   const dispatch = useDispatch();
   const { selectedProject, projects } = useTypedSelector((state) => state.tree);
 
+  const [open, setOpen] = React.useState(false);
+  const [alertInfo, setAlertInfo] = React.useState({
+    severity: 'success',
+    message: '',
+  });
   const [summaryInfo, setSummaryInfo] = useState<null | ProjectInfoGroup>(null);
   const [timeInfo, setTimeInfo] = useState<null | ProjectTimeGroup>(null);
   const [businessInfo, setBusinessInfo] = useState<null | ProjectBusinessGroup>(
@@ -65,6 +71,17 @@ const EditPropertiesBlock: React.FC = () => {
     },
     []
   );
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (selectedProject) {
@@ -111,20 +128,33 @@ const EditPropertiesBlock: React.FC = () => {
 
   const onReaderLoad = useCallback(
     (event: any) => {
+      let validateResult: boolean;
       console.log(event.target.result);
       try {
         const obj: ProjectData = JSON.parse(event.target.result);
-        if (simpleValidateParsedData(obj)) {
+        validateResult = simpleValidateParsedData(obj);
+        if (validateResult) {
           dispatch({
             type: TreeActionTypes.IMPORT_PROJECTS_DATA,
             payload: obj,
           });
+          setAlertInfo({
+            severity: 'success',
+            message: 'Import was successfully processed',
+          });
         } else {
-          console.log(false);
+          setAlertInfo({
+            severity: 'error',
+            message: 'Import file didn`t pass validation',
+          });
         }
       } catch (e) {
-        console.log('SOMETHING WENT WRONG', e);
+        setAlertInfo({
+          severity: 'error',
+          message: 'Can`t parse file data',
+        });
       }
+      setOpen(true);
     },
     [dispatch]
   );
@@ -143,6 +173,11 @@ const EditPropertiesBlock: React.FC = () => {
   return (
     <div className={'properties-main-container'}>
       <h1>Project properties</h1>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+          {alertInfo.message}
+        </Alert>
+      </Snackbar>
       <Box sx={{ width: '100%', height: '450px' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
