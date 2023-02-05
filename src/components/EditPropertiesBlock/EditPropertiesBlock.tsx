@@ -312,7 +312,17 @@ const EditPropertiesBlock: React.FC = () => {
         </TabPanel>
       </Box>
       <div className={'properties-main-container__actions'}>
-        <input onChange={onImportFile} type="file" />
+        <label id={'import-label'} htmlFor="import-input">
+          Import data
+        </label>
+        <input
+          id="import-input"
+          style={{
+            display: 'none',
+          }}
+          onChange={onImportFile}
+          type="file"
+        />
         <Button onClick={exportProjectFromStoreToJsonFile} variant="contained">
           Export data
         </Button>
