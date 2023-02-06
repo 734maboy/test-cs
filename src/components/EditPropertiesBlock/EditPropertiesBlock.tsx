@@ -12,7 +12,7 @@ import {
 } from '../../types/tree';
 import { useDispatch } from 'react-redux';
 import { simpleValidateParsedData } from '../../utils/validation';
-import { Alert } from '@mui/lab';
+import { Alert } from '@mui/material';
 
 interface TabPanelProps {
   children?: React.ReactNode;

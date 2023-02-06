@@ -1,0 +1,75 @@
+{
+  "id": "root",
+  "name": "ROOT",
+  "children": [
+    {
+      "id": "mobX-tail",
+      "name": "MOBX-TAIL",
+      "children": [],
+      "groups": [
+        {
+          "id": 1,
+          "groupTitle": "Summary",
+          "groupValue": "Summary",
+          "groupProperties": {
+            "projectDescription": "шара мара",
+            "projectStatus": "In progress",
+            "projectPeopleNumber": "13"
+          }
+        },
+        {
+          "id": 2,
+          "groupTitle": "Time",
+          "groupValue": "Time",
+          "groupProperties": {
+            "projectDaysEstimate": 180,
+            "projectDaysEffort": 35
+          }
+        },
+        {
+          "id": 3,
+          "groupTitle": "Business",
+          "groupValue": "Business",
+          "groupProperties": {
+            "projectBusinessValue": 3,
+            "projectBudget": 315000,
+            "projectBudgetCurrency": "USD",
+            "projectTeamCode": 35
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "groupTitle": "Summary",
+      "groupValue": "Summary",
+      "groupProperties": {
+        "projectDescription": "sd",
+        "projectStatus": "In progress",
+        "projectPeopleNumber": 15
+      }
+    },
+    {
+      "id": 2,
+      "groupTitle": "Time",
+      "groupValue": "Time",
+      "groupProperties": {
+        "projectDaysEstimate": 180,
+        "projectDaysEffort": 35
+      }
+    },
+    {
+      "id": 3,
+      "groupTitle": "Business",
+      "groupValue": "Business",
+      "groupProperties": {
+        "projectBusinessValue": 5,
+        "projectBudget": 250000,
+        "projectBudgetCurrency": "RUB",
+        "projectTeamCode": 35
+      }
+    }
+  ]
+}

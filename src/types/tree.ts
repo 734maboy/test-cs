@@ -1,21 +1,44 @@
+/**
+ * @typedef {Object} BaseProjectGroup
+ * @property {number} id group Identificator
+ * @property {string} groupTitle group title
+ * @property {string} groupValue group value
+ */
 interface BaseProjectGroup {
   id: number;
   groupTitle: string;
   groupValue: string;
 }
 
+/**
+ * @typedef {Object} ProjectSummaryProperties
+ * @property {number} projectDescription description
+ * @property {string} projectStatus project status
+ * @property {string} projectPeopleNumber amount of people in project
+ */
 export interface ProjectSummaryProperties {
   projectDescription: string;
   projectStatus: string;
   projectPeopleNumber: number;
-  isOutsourceProject: boolean;
 }
 
+/**
+ * @typedef {Object} ProjectTimeProperties
+ * @property {number} projectDaysEstimate estimate of project job
+ * @property {number} projectDaysEffort effort time of project job
+ */
 export interface ProjectTimeProperties {
   projectDaysEstimate: number;
   projectDaysEffort: number;
 }
 
+/**
+ * @typedef {Object} ProjectBusinessProperties
+ * @property {number} projectBusinessValue number of business value
+ * @property {number} projectBudget budget of project
+ * @property {string} projectBudgetCurrency using currency
+ * @property {number} projectTeamCode internal team code
+ */
 export interface ProjectBusinessProperties {
   projectBusinessValue: number;
   projectBudget: number;

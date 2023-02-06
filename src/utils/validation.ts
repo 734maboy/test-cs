@@ -11,7 +11,6 @@ const summaryFields = [
   'projectDescription',
   'projectStatus',
   'projectPeopleNumber',
-  'isOutsourceProject',
 ];
 
 const timeFields = ['projectDaysEstimate', 'projectDaysEffort'];
@@ -23,6 +22,10 @@ const businessFields = [
   'projectTeamCode',
 ];
 
+/**
+ * Фукнция для валидации групп проекта
+ * @param groups Массив групп для валидации
+ */
 function validateGroups(
   groups: [ProjectInfoGroup, ProjectTimeGroup, ProjectBusinessGroup]
 ): boolean {
@@ -58,7 +61,8 @@ function validateGroups(
 }
 
 /**
- *  @param {ProjectData} data
+ * Функция валидации данных при импорте
+ *  @param {ProjectData} data Объект для валидации
  */
 export function simpleValidateParsedData(data: ProjectData): boolean {
   if (!(data.id && data.name)) return false;

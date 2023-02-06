@@ -1,9 +1,5 @@
-import {
-  ProjectData,
-  TreeAction,
-  TreeActionTypes,
-  TreeState,
-} from '../../types/tree';
+import { TreeAction, TreeActionTypes, TreeState } from '../../types/tree';
+import { deepProjectUpdate } from '../../utils/utils';
 
 const initState: TreeState = {
   projects: {
@@ -27,7 +23,6 @@ const initState: TreeState = {
                   projectDescription: 'lorem inpsum some inttrtrt',
                   projectStatus: 'In progress',
                   projectPeopleNumber: 35,
-                  isOutsourceProject: true,
                 },
               },
               {
@@ -62,7 +57,6 @@ const initState: TreeState = {
               projectDescription: 'lorem inpsum some inttrtrt',
               projectStatus: 'In progress',
               projectPeopleNumber: 35,
-              isOutsourceProject: true,
             },
           },
           {
@@ -100,7 +94,6 @@ const initState: TreeState = {
               projectDescription: 'lorem inpsum some inttrtrt',
               projectStatus: 'In progress',
               projectPeopleNumber: 35,
-              isOutsourceProject: true,
             },
           },
           {
@@ -135,7 +128,6 @@ const initState: TreeState = {
           projectDescription: 'sd',
           projectStatus: 'In progress',
           projectPeopleNumber: 15,
-          isOutsourceProject: false,
         },
       },
       {
@@ -163,24 +155,6 @@ const initState: TreeState = {
   selectedProject: null,
   error: null,
 };
-
-function deepProjectUpdate(
-  project: ProjectData,
-  modifiedProject: ProjectData
-): ProjectData {
-  const updatedAll = Object.assign({}, project);
-  if (project.id === modifiedProject.id) {
-    return { ...updatedAll, ...modifiedProject };
-  } else {
-    if (project.children.length > 0) {
-      updatedAll.children = [];
-      project.children.forEach((child) => {
-        updatedAll.children.push(deepProjectUpdate(child, modifiedProject));
-      });
-    }
-  }
-  return updatedAll;
-}
 
 export const treeReducer = (
   state: TreeState = initState,
